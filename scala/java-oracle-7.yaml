@@ -1,0 +1,13 @@
+---
+# This playbook installs Oracle Java 7 JDK.  It is meant to be included in the task list of another playbook. 
+  - name: Install PyCurl (required for apt-repository updates)
+    apt: pkg=python-pycurl
+  
+  - name: Install Oracle Java Repo Installer Repository
+    apt_repository: repo=ppa:webupd8team/java update-cache=yes 
+
+  - name: Wizardry to bypass the Oracle License File prompt
+    shell: echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+
+  - name: Install Oracle Java 7
+    apt: pkg=oracle-java7-installer

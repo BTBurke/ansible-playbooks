@@ -1,0 +1,5 @@
+- name: Install libyaml
+  apt: pkg=libyaml-dev
+
+- name: Install pyyaml
+  pip: name=pyyaml

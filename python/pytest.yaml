@@ -1,0 +1,2 @@
+- name: Install Py.Test
+  pip: name=pytest

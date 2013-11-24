@@ -1,0 +1,10 @@
+# A playbook to install a few packages common to most Python set ups.  It installs build-essential, python-dev,
+# and pip.  This will let you subsequently install lots of things via pip with extensions.
+    - name: Install build-essential
+      apt: pkg=build-essential
+
+    - name: Install python-dev
+      apt: pkg=python-dev
+
+    - name: Install python-pip
+      apt: pkg=python-pip

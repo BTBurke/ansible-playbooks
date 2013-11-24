@@ -1,0 +1,4 @@
+# Ignore all Vagrant testing related files
+Vagrantfile
+test-provisioning/
+.vagrant/
