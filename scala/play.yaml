@@ -1,0 +1,31 @@
+---
+# This playbook installs the Typesafe Play application framework.  Play creates files in its installation directory,
+# so you need to set the play_user and play_group variables to the user who will run the play application.
+# Note: If running in a dev VM environment, you should forward port 9000 to access the Play server
+- hosts: all
+  vars:
+    play_version: 2.2.1
+    play_user: vagrant
+    play_group: vagrant
+  sudo: yes
+  tasks: 
+    - name: Create Ansible Cache Directory
+      file: path=/var/local/ansible-cache state=directory 
+
+    - name: Download Play {{play_version}}
+      get_url: dest=/var/local/ansible-cache/ url=http://downloads.typesafe.com/play/{{play_version}}/play-{{play_version}}.zip
+
+    - name: Install unzip
+      apt: pkg=unzip
+
+    - name: Extract Play
+      shell: unzip /var/local/ansible-cache/play-{{play_version}}.zip -d /usr/local/share creates=/usr/local/share/play-{{play_version}}
+
+    - name: Set Play Executable Permissions
+      file: path=/usr/local/share/play-{{play_version}}/play group=root owner=root mode=0777
+
+    - name: Set Play Directory Permissions
+      file: path=/usr/local/share/play-{{play_version}} group={{play_group}} owner={{play_user}} recurse=yes state=directory
+
+    - name: Add Play executable symlinks to path
+      shell: for f in play; do ln -s /usr/local/share/play-{{play_version}}/$f /usr/local/bin/$f; done; creates=/usr/local/bin/play
