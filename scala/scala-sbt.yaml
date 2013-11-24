@@ -3,15 +3,9 @@
   vars:
     scala_version: 2.10.3
     sbt_version: 0.13.0
-    java_provider: oracle #  either openjdk or oracle 
+    java_provider: openjdk #  either openjdk or oracle 
   sudo: yes
   tasks: 
-    - name: Update apt cache
-      apt: update-cache=yes cache_valid_time=86400
-
-    - name: Update all packages
-      apt: upgrade=dist
-
    ###########################################################################################################################################
    # For ORACLE JAVA 7, set java_provider variable to oracle.
    ###########################################################################################################################################
